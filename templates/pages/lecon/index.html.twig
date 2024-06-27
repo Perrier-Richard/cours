@@ -1,20 +1,56 @@
-{% extends '../../base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Hello LeconController!{% endblock %}
+{% block title %}SymRecipe - Liste cours{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/Richard/Desktop/BUT Informatique/Année 2/Semestre 2/Architecture Logicielle/cours/src/Controller/LeconController.php</code></li>
-        <li>Your template at <code>C:/Users/Richard/Desktop/BUT Informatique/Année 2/Semestre 2/Architecture Logicielle/cours/templates/lecon/index.html.twig</code></li>
-    </ul>
-</div>
+    <div class="container mt-4">
+        {%  for message in app.flashes('success') %}
+            <div class="alert alert-dismissible alert-success mt-4">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <h1>Liste des lecons</h1>
+        {% if not lecons.items is same as ([]) %}
+            <h4>{{ lecons.getTotalItemCount }} professeur</h4>
+            <table class="table table-hover">
+                <thead>
+                <tr class="table-secondary">
+                    <th scope="col">Numéro</th>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Heures</th>
+                    <th scope="col">Edition</th>
+                    <th scope="col">Suppression</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for lecon in lecons %}
+                    <tr class="table-dark">
+                        <th scope="row">{{ lecon.id }}</th>
+                        <td>{{ lecon.titre }}</td>
+                        <td>{{ lecon.code }}</td>
+                        <td>{{ lecon.heures }}</td>
+                        <td>
+                            <a
+                                    href="{{ path('lecon_edit', { id: lecon.id }) }}"
+                                    class="btn btn-info">Modifier
+                            </a>
+                        </td>
+                        <td>
+                            <a
+                                    href="{{ path('lecon_remove', { id: lecon.id }) }}"
+                                    class="btn btn-warning">Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center mt-4">
+                {{ knp_pagination_render(lecons) }}
+            </div>
+        {% else %}
+            <h4>Il n'y a aucune lecons !</h4>
+        {% endif %}
+    </div>
 {% endblock %}

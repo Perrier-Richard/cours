@@ -20,6 +20,7 @@
                     <th scope="col">Prénom</th>
                     <th scope="col">Téléphone</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Cours</th>
                     <th scope="col">Edition</th>
                     <th scope="col">Suppression</th>
                 </tr>
@@ -32,6 +33,12 @@
                         <td>{{ prof.prenom }}</td>
                         <td>{{ prof.tel }}</td>
                         <td>{{ prof.email }}</td>
+                        <td>
+                            <a
+                                    href="{{ path('app_lecon', { id: prof.id }) }}"
+                                    class="btn btn-info">Consulter
+                            </a>
+                        </td>
                         <td>
                             <a
                                     href="{{ path('prof_edit', { id: prof.id }) }}"

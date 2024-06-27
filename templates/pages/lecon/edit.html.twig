@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <div class="container" >
+        <h1 class="mt-4">Edition d'une leçon</h1>
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="form-error">
+                {{ form_errors(form.titre) }}
+            </div>
+            {{ form_label(form.titre) }}
+            {{ form_widget(form.titre) }}
+        </div>
+        <div class="row">
+            <div class="form-error">
+                {{ form_errors(form.code) }}
+            </div>
+            {{ form_label(form.code) }}
+            {{ form_widget(form.code) }}
+        </div>
+        <div class="row">
+            <div class="form-error">
+                {{ form_errors(form.heures) }}
+            </div>
+            {{ form_label(form.heures) }}
+            {{ form_widget(form.heures) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.submit) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
