@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SymRecipe - Liste professeur{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        {%  for message in app.flashes('success') %}
+            <div class="alert alert-dismissible alert-success mt-4">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <h1>Liste des professeur</h1>
+        {% if not profs.items is same as ([]) %}
+            <h4>{{ profs.getTotalItemCount }} professeur</h4>
+            <table class="table table-hover">
+            <thead>
+                <tr class="table-secondary">
+                    <th scope="col">Numéro</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Edition</th>
+                    <th scope="col">Suppression</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prof in profs %}
+                    <tr class="table-dark">
+                        <th scope="row">{{ prof.id }}</th>
+                        <td>{{ prof.nom }}</td>
+                        <td>{{ prof.prenom }}</td>
+                        <td>{{ prof.tel }}</td>
+                        <td>{{ prof.email }}</td>
+                        <td>
+                            <a
+                                    href="{{ path('prof_edit', { id: prof.id }) }}"
+                                    class="btn btn-info">Modifier
+                            </a>
+                        </td>
+                        <td>
+                            <a
+                                    href="{{ path('prof_remove', { id: prof.id }) }}"
+                                    class="btn btn-warning">Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            <div class="d-flex justify-content-center mt-4">
+                {{ knp_pagination_render(profs) }}
+            </div>
+        {% else %}
+            <h4>Il n'y a aucun professeurs !</h4>
+        {% endif %}
+    </div>
+{% endblock %}
